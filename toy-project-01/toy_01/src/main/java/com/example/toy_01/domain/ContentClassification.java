@@ -22,7 +22,8 @@ public class ContentClassification  extends TimeBaseEntity{
     @JoinColumn(name = "classification_id")
     private Classification classification;
 
-
-
-
+    public ContentClassification(Content content, Classification classification) {
+        this.content = content;
+        this.classification = classification;
+    }
 }
