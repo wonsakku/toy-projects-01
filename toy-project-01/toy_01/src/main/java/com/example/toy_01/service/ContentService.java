@@ -4,6 +4,7 @@ import com.example.toy_01.domain.Classification;
 import com.example.toy_01.domain.Content;
 import com.example.toy_01.domain.ContentClassification;
 import com.example.toy_01.dto.RequestContentDto;
+import com.example.toy_01.dto.RespContentsDto;
 import com.example.toy_01.repository.ClassificationRepository;
 import com.example.toy_01.repository.ContentClassificationRepository;
 import com.example.toy_01.repository.ContentRepository;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Transactional(readOnly = true)
@@ -52,7 +54,18 @@ public class ContentService {
                 .orElseThrow(() -> new IllegalStateException("존재하지 않는 content_id 입니다."));
     }
 
-    public List<Content> findAll(){
-        return contentRepository.findAll();
+    public List<RespContentsDto> findContents(){
+
+        // ToOne 관계인 도메인은 FETCH JOIN 으로 조회를 한 후
+        List<Content> contents = contentRepository.findAll();
+
+        // default_batch_fetch_size 옵션으로 ToMany 관계인 도메인을 LazyLoading 한다..
+        return contents.stream().map(RespContentsDto::new).collect(Collectors.toList());
     }
 }
+
+
+
+
+
+

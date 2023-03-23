@@ -1,6 +1,5 @@
 package com.example.toy_01.controller;
 
-import com.example.toy_01.constants.Time;
 import com.example.toy_01.domain.Content;
 import com.example.toy_01.dto.RequestContentDto;
 import com.example.toy_01.dto.RespContentsDto;
@@ -37,8 +36,8 @@ public class ContentController {
     @GetMapping
     public ResponseEntity findContents(){
 
-        List<Content> findAll = contentService.findAll();
-        List<RespContentsDto> results = findAll.stream().map(RespContentsDto::new).collect(Collectors.toList());
+        List<RespContentsDto> results = contentService.findContents();
+
         return ResponseEntity.ok(results);
     }
 

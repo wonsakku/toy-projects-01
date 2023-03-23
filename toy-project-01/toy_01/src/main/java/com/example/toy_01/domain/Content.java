@@ -25,7 +25,8 @@ public class Content extends TimeBaseEntity{
     @Column(name = "body", length = 2000)
     private String body;
 
-    @OneToMany(mappedBy = "content")
+    // ToMany 는 Lazy Fetch 가 default
+    @OneToMany(mappedBy = "content", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ContentClassification> contentClassifications = new ArrayList<>();
 
 

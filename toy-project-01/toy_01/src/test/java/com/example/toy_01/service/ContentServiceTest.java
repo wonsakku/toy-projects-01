@@ -4,6 +4,10 @@ import com.example.toy_01.domain.Classification;
 import com.example.toy_01.domain.Content;
 import com.example.toy_01.domain.ContentClassification;
 import com.example.toy_01.dto.RequestContentDto;
+import com.example.toy_01.dto.RespContentsDto;
+import com.example.toy_01.repository.ClassificationRepository;
+import com.example.toy_01.repository.ContentClassificationRepository;
+import com.example.toy_01.repository.ContentRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -26,18 +31,27 @@ class ContentServiceTest {
     @Autowired EntityManager em;
 
     List<Long> classificationIds = new ArrayList<>();
+    List<Long> classificationIds2 = new ArrayList<>();
 
     @BeforeEach
     void init(){
         classificationIds.clear();
+        classificationIds2.clear();
 
         Classification c1 = new Classification("테스트_classification_01");
         Classification c2 = new Classification("테스트_classification_02");
         em.persist(c1);
         em.persist(c2);
 
+        Classification c3 = new Classification("테스트_classification_03");
+        Classification c4 = new Classification("테스트_classification_04");
+        em.persist(c3);
+        em.persist(c4);
+
         classificationIds.add(c1.getId());
         classificationIds.add(c2.getId());
+        classificationIds2.add(c3.getId());
+        classificationIds2.add(c4.getId());
     }
 
 
@@ -91,6 +105,30 @@ class ContentServiceTest {
             contentService.findById(notExistContentId);
         }).isInstanceOf(IllegalStateException.class)
                 .hasMessage("존재하지 않는 content_id 입니다.");
+    }
+
+    @Test
+    @DisplayName("content List 조회 테스트")
+    void findContents(){
+        RequestContentDto dto = new RequestContentDto("테스트 레퍼런스", "테스트 바디", classificationIds);
+        RequestContentDto dto2 = new RequestContentDto("테스트 레퍼런스2", "테스트 바디2", classificationIds2);
+
+        contentService.save(dto);
+        contentService.save(dto2);
+
+        em.flush();
+        em.clear();
+
+        List<RespContentsDto> contents = contentService.findContents();
+
+        for (RespContentsDto content : contents) {
+            assertThat(content.getId()).isNotNull();
+            assertThat(content.getReference()).isNotNull();
+            assertThat(content.getBody()).isNotNull();
+            assertThat(content.getCreatedDateTime()).isNotNull();
+            assertThat(content.getModifiedDateTime()).isNotNull();
+            assertThat(content.getClassifications()).hasSize(2);
+        }
     }
 
 }

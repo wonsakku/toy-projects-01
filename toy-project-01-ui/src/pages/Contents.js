@@ -11,6 +11,7 @@ const Contents = () => {
     const getContents = () => {
         axios.get("http://localhost:8080/contents")
             .then(res => {
+                console.log(res.data);
                 setContents(res.data);
             });
     }
@@ -33,8 +34,10 @@ const Contents = () => {
                 {contents.map(content => {
                     return (
                         <Card key={content.id}
+                            contentId={content.id}
                             reference={content.reference}
                             body={content.body}
+                            classifications={content.classifications}
                         />
                     );
                 })}
