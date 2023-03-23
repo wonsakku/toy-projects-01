@@ -1,7 +1,7 @@
 import Home from "./pages/Home";
-import Articles from "./pages/Articles";
-import ArticleWrite from "./pages/ArticleWrite";
-import ArticleEdit from "./pages/ArticleEdit";
+import Contents from "./pages/Contents";
+import ContentWrite from "./pages/ContentWrite";
+import ContentEdit from "./pages/ContentEdit";
 
 
 const routes = [
@@ -11,19 +11,19 @@ const routes = [
         key: "sidebar-home"
     },
     {
-        path: "/articles",
-        component: Articles,
-        key: "sidebar-home"
+        path: "/contents",
+        component: Contents,
+        key: "contents-list"
     },
     {
-        path: "/articles/write",
-        component: ArticleWrite,
-        key: "sidebar-home"
+        path: "/contents/write",
+        component: ContentWrite,
+        key: "contents-write"
     },
     {
-        path: "/articles/edit",
-        component: ArticleEdit,
-        key: "sidebar-home"
+        path: "/contents/edit",
+        component: ContentEdit,
+        key: "contents-edit"
     }
 ];
 

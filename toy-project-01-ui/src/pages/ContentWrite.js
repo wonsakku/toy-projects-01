@@ -4,7 +4,7 @@ import React from "react";
 import { useHistory } from 'react-router-dom';
 
 
-const ArticleWrite = () => {
+const ContentWrite = () => {
 
     const [reference, setReference] = useState('');
     const [body, setBody] = useState('');
@@ -95,7 +95,7 @@ const ArticleWrite = () => {
     return (
         <div className="container">
             <header>
-                <h1>ArticleWrite</h1>
+                <h1>ContentWrite</h1>
             </header>
             <div className="mt-5">
                 <form>
@@ -136,4 +136,4 @@ const ArticleWrite = () => {
     );
 }
 
-export default ArticleWrite;
+export default ContentWrite;

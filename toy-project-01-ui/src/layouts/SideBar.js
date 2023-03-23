@@ -14,7 +14,7 @@ const SideBar = () => {
                     <Link className="nav-link text-white" to="/">Home</Link>
                 </li>
                 <li>
-                    <Link className="nav-link text-white" to="/articles">articles</Link>
+                    <Link className="nav-link text-white" to="/contents">Contents</Link>
                 </li>
             </ul>
         </div>
