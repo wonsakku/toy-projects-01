@@ -51,4 +51,8 @@ public class ContentService {
         return contentRepository.findById(id)
                 .orElseThrow(() -> new IllegalStateException("존재하지 않는 content_id 입니다."));
     }
+
+    public List<Content> findAll(){
+        return contentRepository.findAll();
+    }
 }
